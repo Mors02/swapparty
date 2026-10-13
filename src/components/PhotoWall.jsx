@@ -21,10 +21,6 @@ function PhotoWall({ edition }) {
         Edizione del {label} · {edition.place}
       </p>
 
-      {edition.gallery.length === 0 && (
-        <p className="mt-16 text-ink-muted">Le foto di questa edizione arriveranno presto.</p>
-      )}
-
       <ul key={edition.date} className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-10 lg:grid-cols-4">
         {edition.gallery.map((src, i) => {
           const seed = base + i * 7

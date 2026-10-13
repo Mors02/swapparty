@@ -10,38 +10,50 @@ const PHOTO_FAN = [
 
 function EditionCard({ edition, onSelect }) {
   const label = formatDate(edition.date)
+  const hasPhotos = edition.gallery.length > 0
+
+  const content = (
+    <>
+      <div className="relative isolate">
+        {edition.previews.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt=""
+            loading="lazy"
+            className="edition-photo absolute top-1/2 left-1/2 aspect-[4/3] w-[95%] rounded-md border-4 border-surface object-cover shadow-lg"
+            style={{ '--x': PHOTO_FAN[i].x, '--y': PHOTO_FAN[i].y, '--rot': PHOTO_FAN[i].rot, zIndex: -1 - (2 - i) }}
+          />
+        ))}
+        <img
+          src={edition.flyer}
+          alt={`Volantino Swap Carpi del ${label}`}
+          loading="lazy"
+          width="1131"
+          height="1600"
+          className="edition-flyer relative block h-auto w-full rounded-md shadow-xl shadow-pistachio-900/20"
+        />
+      </div>
+      <p className="mt-5 font-display text-xl font-bold text-pistachio-900">{label}</p>
+      <p className="text-sm text-ink-muted">{edition.place}</p>
+    </>
+  )
 
   return (
     <li className="relative hover:z-10 focus-within:z-10">
-      <button
-        type="button"
-        onClick={() => onSelect(edition)}
-        aria-label={`Guarda le foto dell'edizione del ${label}`}
-        className="group mx-auto block w-3/5 cursor-pointer rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-pistachio-700"
-      >
-        <div className="relative isolate">
-          {edition.previews.map((src, i) => (
-            <img
-              key={i}
-              src={src}
-              alt=""
-              loading="lazy"
-              className="edition-photo absolute top-1/2 left-1/2 aspect-[4/3] w-[95%] rounded-md border-4 border-surface object-cover shadow-lg"
-              style={{ '--x': PHOTO_FAN[i].x, '--y': PHOTO_FAN[i].y, '--rot': PHOTO_FAN[i].rot, zIndex: -1 - (2 - i) }}
-            />
-          ))}
-          <img
-            src={edition.flyer}
-            alt={`Volantino Swap Carpi del ${label}`}
-            loading="lazy"
-            width="1131"
-            height="1600"
-            className="edition-flyer relative block h-auto w-full rounded-md shadow-xl shadow-pistachio-900/20"
-          />
-        </div>
-        <p className="mt-5 font-display text-xl font-bold text-pistachio-900">{label}</p>
-        <p className="text-sm text-ink-muted">{edition.place}</p>
-      </button>
+      {hasPhotos ? (
+        <button
+          type="button"
+          onClick={() => onSelect(edition)}
+          aria-label={`Guarda le foto dell'edizione del ${label}`}
+          className="group mx-auto block w-3/5 cursor-pointer rounded-lg text-left focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-pistachio-700"
+        >
+          {content}
+        </button>
+      ) : (
+        // Senza foto: il volantino si muove comunque in hover, ma non c'è niente da aprire
+        <div className="group mx-auto w-3/5">{content}</div>
+      )}
     </li>
   )
 }
