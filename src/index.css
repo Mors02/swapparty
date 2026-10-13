@@ -115,8 +115,32 @@
   }
 }
 
+/* Foto a schermo intero: compare con un piccolo zoom */
+.lightbox[open] img {
+  animation: lightbox-in 0.25s ease-out;
+}
+
+.lightbox[open]::backdrop {
+  animation: fade-in 0.25s ease-out;
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .polaroid {
+  .polaroid,
+  .lightbox[open] img,
+  .lightbox[open]::backdrop {
     animation: none;
   }
 

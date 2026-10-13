@@ -13,7 +13,7 @@ const EDITIONS = [
   { date: '2026-06-14', flyer: '/flyers/26-06-14.jpeg', place: 'Via G. Galilei 4, Correggio' },
 ].map((e) => {
   const photos = photosFor(e.flyer.split('/').pop().replace(/\.[^.]+$/, ''))
-  return { ...e, previews: photos.slice(0, 3), gallery: photos }
+  return { ...e, previews: photos.slice(0, 3).map((p) => p.thumb), gallery: photos }
 })
 
 // Dalla più recente alla più vecchia

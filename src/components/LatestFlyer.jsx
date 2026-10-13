@@ -5,8 +5,10 @@ import { formatDate } from '../data/editions.js'
 // Inclinazione massima in gradi: gli angoli del volantino seguono il puntatore
 const MAX_TILT = 8
 
-function LatestFlyer({ edition }) {
+function LatestFlyer({ edition, onSelect }) {
   const cardRef = useRef(null)
+  // Come per le edizioni passate: il volantino apre le foto solo se ce ne sono
+  const hasPhotos = edition.gallery.length > 0
 
   const onPointerMove = (e) => {
     if (e.pointerType !== 'mouse') return
@@ -35,7 +37,23 @@ function LatestFlyer({ edition }) {
     >
       <div className="grid w-full items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
         <div className="[perspective:1200px]" onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
-          <div ref={cardRef} className="flyer-tilt relative mx-auto w-full max-w-[min(36rem,56svh)] overflow-hidden rounded-lg shadow-2xl shadow-pistachio-900/25">
+          <div
+            ref={cardRef}
+            {...(hasPhotos && {
+              role: 'button',
+              tabIndex: 0,
+              'aria-label': `Guarda le foto dell'edizione del ${formatDate(edition.date)}`,
+              onClick: () => onSelect(edition),
+              onKeyDown: (e) => {
+                if (e.key !== 'Enter' && e.key !== ' ') return
+                e.preventDefault()
+                onSelect(edition)
+              },
+            })}
+            className={`flyer-tilt relative mx-auto w-full max-w-[min(36rem,56svh)] overflow-hidden rounded-lg shadow-2xl shadow-pistachio-900/25 ${
+              hasPhotos ? 'cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-pistachio-700' : ''
+            }`}
+          >
             <img
               src={edition.flyer}
               alt={`Volantino Swap Carpi del ${formatDate(edition.date)}`}

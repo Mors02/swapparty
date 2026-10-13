@@ -39,7 +39,7 @@ function App() {
       <Header visible={headerVisible} />
       <main>
         <Hero onTitleReachTop={setHeaderVisible} />
-        <LatestFlyer edition={latest} />
+        <LatestFlyer edition={latest} onSelect={showPhotos} />
         <PastEditions editions={past} onSelect={showPhotos} />
         {photoEdition && <PhotoWall edition={photoEdition} />}
         <Articles />
