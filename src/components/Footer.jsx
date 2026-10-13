@@ -82,7 +82,7 @@ function Footer() {
         </Column>
       </div>
 
-      <p className="mt-20 border-t border-cream/10 pt-6 text-sm text-cream/50">© {YEAR} Swap Carpi</p>
+      <p className="mt-20 border-t border-cream/10 pt-6 text-sm text-cream/50">{YEAR} Swap Carpi</p>
     </footer>
   )
 }
