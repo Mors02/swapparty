@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+/* Swap Carpi — palette pastello su base verde pistacchio */
+@theme {
+  /* Pistacchio (primario) */
+  --color-pistachio-50: #f6faf0;
+  --color-pistachio-100: #eaf4dc;
+  --color-pistachio-200: #d6ebbd;
+  --color-pistachio-300: #b5d98f;
+  --color-pistachio-400: #a3cf7f;
+  --color-pistachio-500: #93c572; /* base */
+  --color-pistachio-600: #6fa34f;
+  --color-pistachio-700: #456b30;
+  --color-pistachio-800: #3a5629;
+  --color-pistachio-900: #2f4624;
+  --color-pistachio-950: #1c2a15; /* footer */
+
+  /* Accenti pastello */
+  --color-peach: #ffd9c4;
+  --color-blush: #f8cdd8;
+  --color-lavender: #dcd2f4;
+  --color-butter: #fff0b8;
+  --color-sky: #cfe8f2;
+
+  /* Neutri */
+  --color-cream: #fbfaf4;
+  --color-surface: #ffffff;
+  --color-border: #e6e4d8;
+  --color-ink: #2f3a28; /* testo, 11.4:1 su cream */
+  --color-ink-muted: #5f6b57; /* testo secondario, 5.4:1 su cream */
+
+  /* Ruoli: bottone primario = bg-primary + text-pistachio-900 (5.2:1);
+     con testo bianco usare bg-primary-strong (6.2:1) */
+  --color-primary: var(--color-pistachio-500);
+  --color-primary-strong: var(--color-pistachio-700);
+
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-ink antialiased;
+  }
+}
+
+/* Icone "adesivo": contorno scuro sottile per staccare i pastelli dallo sfondo chiaro */
+@utility sticker {
+  filter: drop-shadow(1.5px 0 0 var(--color-pistachio-800)) drop-shadow(-1.5px 0 0 var(--color-pistachio-800))
+    drop-shadow(0 1.5px 0 var(--color-pistachio-800)) drop-shadow(0 -1.5px 0 var(--color-pistachio-800))
+    drop-shadow(0 4px 6px rgb(47 70 36 / 0.18));
+}
+
+/* Volantino in evidenza: parallasse sugli angoli (variabili impostate da LatestFlyer) */
+.flyer-tilt {
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+}
+
+.flyer-glare {
+  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgb(255 255 255 / 0.35), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flyer-tilt:hover .flyer-glare {
+  opacity: 1;
+}
+
+/* Evidenziatore: banda più scura dietro la parte bassa del testo */
+.highlight {
+  color: inherit;
+  background: linear-gradient(transparent 45%, var(--color-pistachio-300) 45%, var(--color-pistachio-300) 92%, transparent 92%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-inline: 0.1em;
+  margin-inline: -0.1em;
+}
+
+/* Edizioni passate: il volantino si sposta piegato e da sotto escono le foto */
+.edition-flyer,
+.edition-photo {
+  transition: transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.edition-photo {
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+@media (hover: hover) {
+  .group:hover .edition-flyer,
+  .group:focus-visible .edition-flyer {
+    transform: translateX(-12%) rotate(-6deg);
+  }
+
+  .group:hover .edition-photo,
+  .group:focus-visible .edition-photo {
+    transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) rotate(var(--rot));
+  }
+}
+
+/* Foto "attaccate al frigo": posa casuale (variabili da PhotoWall) e comparsa a cascata */
+.polaroid {
+  transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+  animation: polaroid-in 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) var(--delay) backwards;
+}
+
+@keyframes polaroid-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) - 24px)) rotate(calc(var(--rot) * 3)) scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .flyer-tilt,
+  .edition-flyer,
+  .edition-photo {
+    transition: none;
+  }
+
+  .flyer-tilt {
+    transform: none;
+  }
+}

@@ -1,0 +1,34 @@
+/* Swap Party — palette pastello su base verde pistacchio */
+:root {
+  /* Pistacchio (primario) */
+  --pistachio-50:  #F6FAF0;
+  --pistachio-100: #EAF4DC;
+  --pistachio-200: #D6EBBD;
+  --pistachio-300: #B5D98F;
+  --pistachio-400: #A3CF7F;
+  --pistachio-500: #93C572; /* base */
+  --pistachio-600: #6FA34F;
+  --pistachio-700: #456B30;
+  --pistachio-800: #3A5629;
+  --pistachio-900: #2F4624;
+  --pistachio-950: #1C2A15; /* footer */
+
+  /* Accenti pastello */
+  --peach:    #FFD9C4; /* pesca */
+  --blush:    #F8CDD8; /* rosa cipria */
+  --lavender: #DCD2F4; /* lavanda */
+  --butter:   #FFF0B8; /* giallo burro */
+  --sky:      #CFE8F2; /* celeste */
+
+  /* Neutri */
+  --cream:      #FBFAF4; /* sfondo pagina */
+  --surface:    #FFFFFF;
+  --border:     #E6E4D8;
+  --text:       #2F3A28; /* 11.4:1 su cream */
+  --text-muted: #5F6B57; /* 5.4:1 su cream */
+
+  /* Ruoli */
+  --color-bg: var(--cream);
+  --color-primary: var(--pistachio-500);       /* bottoni: testo --pistachio-900 (5.2:1) */
+  --color-primary-strong: var(--pistachio-700); /* link / bottoni con testo bianco (6.2:1) */
+}

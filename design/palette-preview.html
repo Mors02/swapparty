@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swap Party Palette</title>
+<link rel="stylesheet" href="palette.css">
+<style>
+  body { margin: 0; padding: 32px 16px; background: var(--color-bg); color: var(--text); font-family: system-ui, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; }
+  h2 { margin: 32px 0 12px; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); }
+  .row { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+  .sw { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
+  .sw div { height: 80px; }
+  .sw p { margin: 0; padding: 8px 10px; font-size: 12px; line-height: 1.4; }
+  .demo { margin-top: 40px; padding: 32px; border-radius: 24px; background: var(--pistachio-100); }
+  .demo h1 { margin: 0 0 8px; font-size: 36px; color: var(--pistachio-900); }
+  .demo p { color: var(--text-muted); max-width: 520px; }
+  .btn { display: inline-block; padding: 12px 22px; border-radius: 999px; font-weight: 600; text-decoration: none; margin-right: 8px; }
+  .btn-a { background: var(--color-primary); color: var(--pistachio-900); }
+  .btn-b { background: var(--color-primary-strong); color: #fff; }
+  .tags { margin-top: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tags span { padding: 6px 14px; border-radius: 999px; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h2>Pistacchio</h2>
+  <div class="row" id="scale"></div>
+  <h2>Accenti</h2>
+  <div class="row" id="accents"></div>
+  <h2>Neutri</h2>
+  <div class="row" id="neutrals"></div>
+
+  <section class="demo">
+    <h1>Swap Party 🌿</h1>
+    <p>Porta i vestiti che non usi più, scambiali e torna a casa con qualcosa di nuovo.</p>
+    <a class="btn btn-a" href="#">Partecipa</a>
+    <a class="btn btn-b" href="#">Prossime date</a>
+    <div class="tags">
+      <span style="background:var(--peach)">Abbigliamento</span>
+      <span style="background:var(--blush)">Accessori</span>
+      <span style="background:var(--lavender)">Libri</span>
+      <span style="background:var(--butter)">Casa</span>
+      <span style="background:var(--sky)">Bambini</span>
+    </div>
+  </section>
+</main>
+<script>
+  const css = getComputedStyle(document.documentElement);
+  const fill = (id, names) => document.getElementById(id).innerHTML = names.map(n => {
+    const v = css.getPropertyValue('--' + n).trim();
+    return `<div class="sw"><div style="background:${v}"></div><p><b>${n}</b><br>${v}</p></div>`;
+  }).join('');
+  fill('scale', [50,100,200,300,400,500,600,700,800,900].map(n => 'pistachio-' + n));
+  fill('accents', ['peach','blush','lavender','butter','sky']);
+  fill('neutrals', ['cream','surface','border','text-muted','text']);
+</script>
+</body>
+</html>
