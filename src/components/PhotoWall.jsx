@@ -45,7 +45,7 @@ function PhotoWall({ edition }) {
   const [openPhoto, setOpenPhoto] = useState(null)
 
   return (
-    <section id="foto" className="min-h-[70svh] scroll-mt-16 overflow-x-clip bg-pistachio-100 px-4 py-24 sm:px-10 lg:px-20">
+    <section id="foto" className="min-h-[70svh] scroll-mt-16 overflow-x-clip bg-pistachio-200 px-4 py-24 sm:px-10 lg:px-20">
       <h2 className="font-display text-4xl font-bold text-pistachio-900 sm:text-5xl">Foto</h2>
       <p className="mt-3 text-lg text-ink-muted">
         Edizione del {label} · {edition.place}

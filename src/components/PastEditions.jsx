@@ -60,7 +60,7 @@ function EditionCard({ edition, onSelect }) {
 
 function PastEditions({ editions, onSelect }) {
   return (
-    <section id="edizioni" className="scroll-mt-16 overflow-x-clip bg-cream px-4 py-24 sm:px-10 lg:px-20">
+    <section id="edizioni" className="scroll-mt-16 overflow-x-clip bg-pistachio-100 px-4 py-24 sm:px-10 lg:px-20">
       <h2 className="font-display text-4xl font-bold text-pistachio-900 sm:text-5xl">Edizioni passate</h2>
       <ul className="mt-16 grid gap-x-16 gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
         {editions.map((edition) => (

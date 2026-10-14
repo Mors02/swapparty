@@ -8,6 +8,7 @@ const EDITIONS = [
   { date: '2024-06-12', flyer: '/flyers/24-06-12.jpeg', place: 'Parrocchia di Quartirolo, Carpi' },
   { date: '2024-10-20', flyer: '/flyers/24-10-20.jpeg', place: "Parrocchia di Sant'Agata, Cibeno" },
   { date: '2024-11-17', flyer: '/flyers/24-11-17.jpeg', place: 'Società Agricola Terrevive, Carpi' },
+  { date: '2025-05-18', flyer: '/flyers/25-05-18.jpg', place: 'Società Agricola Terrevive, Carpi' },
   { date: '2025-11-23', flyer: '/flyers/25-11-23.jpeg', place: 'Oratorio Eden, Carpi' },
   { date: '2026-05-23', flyer: '/flyers/26-05-23.jpeg', place: 'Società Agricola Terrevive, Carpi' },
   { date: '2026-06-14', flyer: '/flyers/26-06-14.jpeg', place: 'Via G. Galilei 4, Correggio' },
