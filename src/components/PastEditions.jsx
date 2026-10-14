@@ -17,6 +17,7 @@ function EditionCard({ edition, onSelect }) {
       <div className="relative isolate">
         {edition.previews.map((src, i) => (
           <img
+            decoding="async"
             key={i}
             src={src}
             alt=""
@@ -26,6 +27,7 @@ function EditionCard({ edition, onSelect }) {
           />
         ))}
         <img
+          decoding="async"
           src={edition.flyer}
           alt={`Volantino Swap Carpi del ${label}`}
           loading="lazy"

@@ -42,6 +42,21 @@ const clamp01 = (n) => Math.min(1, Math.max(0, n))
 // più alto = transizione più lenta
 const SCROLL_RANGE = 0.85
 
+// Ammorbidimento (secondi, circa il tempo per raggiungere lo scroll). Le icone seguono lo scroll come una
+// molla smorzata: tengono conto della velocità che hanno già, quindi anche con uno scroll a scatti
+// (rotella, trackpad) accelerano e frenano in modo continuo, senza le ripartenze di una transizione CSS.
+const SMOOTH_TIME = 0.22
+
+// Molla smorzata criticamente (smooth damp): restituisce la nuova posizione e la nuova velocità
+const smoothDamp = (current, target, velocity, dt) => {
+  const omega = 2 / SMOOTH_TIME
+  const x = omega * dt
+  const decay = 1 / (1 + x + 0.48 * x * x + 0.235 * x * x * x)
+  const change = current - target
+  const temp = (velocity + omega * change) * dt
+  return [target + (change + temp) * decay, (velocity - omega * temp) * decay]
+}
+
 function Hero() {
   const iconRefs = useRef([])
 
@@ -49,16 +64,18 @@ function Hero() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let radii = []
     let frame = 0
+    let current = 0
+    let velocity = 0
+    let lastTime = 0
 
     const measure = () => {
       radii = iconRefs.current.map((el) => el.offsetWidth / 2)
     }
 
-    const update = () => {
-      frame = 0
-      const p = clamp01(window.scrollY / (window.innerHeight * SCROLL_RANGE))
-      const travel = window.innerWidth
+    const targetProgress = () => clamp01(window.scrollY / (window.innerHeight * SCROLL_RANGE))
 
+    const render = (p) => {
+      const travel = window.innerWidth
       iconRefs.current.forEach((el, i) => {
         const { x, rot } = ITEMS[i]
         if (reduceMotion) {
@@ -69,20 +86,37 @@ function Hero() {
         // rotola: la rotazione segue la distanza percorsa (arco = raggio * angolo)
         const dx = (x < 50 ? -1 : 1) * p * travel
         const angle = rot + (dx / radii[i]) * (180 / Math.PI)
-        el.style.transform = `translateX(${dx}px) rotate(${angle}deg)`
+        el.style.transform = `translate3d(${dx}px, 0, 0) rotate(${angle}deg)`
       })
     }
 
+    const tick = (time) => {
+      const target = targetProgress()
+      const dt = lastTime ? Math.min((time - lastTime) / 1000, 0.1) : 1 / 60
+      lastTime = time
+      if (reduceMotion) current = target
+      else [current, velocity] = smoothDamp(current, target, velocity, dt)
+      if (Math.abs(target - current) < 0.0005 && Math.abs(velocity) < 0.001) {
+        current = target
+        velocity = 0
+      }
+      render(current)
+      // il loop gira solo finché le icone non hanno raggiunto lo scroll
+      frame = current === target ? 0 : requestAnimationFrame(tick)
+      if (!frame) lastTime = 0
+    }
+
     const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update)
+      if (!frame) frame = requestAnimationFrame(tick)
     }
     const onResize = () => {
       measure()
-      onScroll()
+      render(current)
     }
 
     measure()
-    update()
+    current = targetProgress()
+    render(current)
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onResize)
     return () => {
@@ -106,7 +140,7 @@ function Hero() {
             <span
               key={i}
               ref={(el) => (iconRefs.current[i] = el)}
-              className={`sticker hero-icon absolute -translate-x-1/2 -translate-y-1/2 will-change-transform ${color}`}
+              className={`sticker absolute -translate-x-1/2 -translate-y-1/2 will-change-transform ${color}`}
               style={{ left: `${x}%`, top: `${y}%`, fontSize: `${size}em`, transform: `rotate(${rot}deg)` }}
             >
               <Icon className="block" />

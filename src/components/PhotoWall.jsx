@@ -30,6 +30,7 @@ function Lightbox({ photo, onClose }) {
     >
       {photo && (
         <img
+          decoding="async"
           src={photo.full}
           alt={photo.alt}
           className="max-h-full max-w-full rounded-sm border-8 border-b-[2.5rem] border-surface object-contain shadow-2xl shadow-pistachio-900/30 ring-1 ring-border"
@@ -73,7 +74,7 @@ function PhotoWall({ edition }) {
                   aria-hidden="true"
                   className={`absolute -top-2.5 left-1/2 size-5 -translate-x-1/2 rounded-full shadow-md ring-1 ring-pistachio-900/15 ${MAGNETS[(base + i) % MAGNETS.length]}`}
                 />
-                <img src={photo.thumb} alt={alt} loading="lazy" className="block aspect-square w-full bg-pistachio-100 object-cover" />
+                <img src={photo.thumb} alt={alt} loading="lazy" decoding="async" className="block aspect-square w-full bg-pistachio-100 object-cover" />
               </button>
             </li>
           )

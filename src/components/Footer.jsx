@@ -45,7 +45,7 @@ function Footer() {
           </ul>
         </Column>
 
-        <Column title="Autrici">
+        <Column title="Contatti">
           <ul className="space-y-6">
             {AUTHORS.map(({ name, phone, email }) => (
               <li key={name} className="space-y-1">

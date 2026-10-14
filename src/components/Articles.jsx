@@ -17,6 +17,7 @@ function ArticleCard({ article }) {
       >
         {imageOk && (
           <img
+            decoding="async"
             src={article.image}
             alt=""
             loading="lazy"

@@ -55,6 +55,7 @@ function LatestFlyer({ edition, onSelect }) {
             }`}
           >
             <img
+              decoding="async"
               src={edition.flyer}
               alt={`Volantino Swap Carpi del ${formatDate(edition.date)}`}
               width="1131"
