@@ -11,7 +11,6 @@ import { editionsByDate } from './data/editions.js'
 const [latest, ...past] = editionsByDate
 
 function App() {
-  const [headerVisible, setHeaderVisible] = useState(false)
   // Si salva solo la data: l'edizione viene riletta dai dati, così le foto nuove compaiono subito.
   // Nessuna edizione scelta = sezione Foto nascosta
   const [photoDate, setPhotoDate] = useState(null)
@@ -36,9 +35,9 @@ function App() {
 
   return (
     <div id="top">
-      <Header visible={headerVisible} />
+      <Header />
       <main>
-        <Hero onTitleReachTop={setHeaderVisible} />
+        <Hero />
         <LatestFlyer edition={latest} onSelect={showPhotos} />
         <PastEditions editions={past} onSelect={showPhotos} />
         {photoEdition && <PhotoWall edition={photoEdition} />}

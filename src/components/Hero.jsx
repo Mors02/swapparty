@@ -38,28 +38,25 @@ const ITEMS = [
 
 const clamp01 = (n) => Math.min(1, Math.max(0, n))
 
-// Altezza della header (h-16): compare quando il titolo la tocca, così non si sovrappongono
-const HEADER_HEIGHT = 64
+// Quanto bisogna scorrere (in frazioni di altezza dello schermo) perché le icone escano del tutto:
+// più alto = transizione più lenta
+const SCROLL_RANGE = 0.85
 
-function Hero({ onTitleReachTop }) {
-  const titleRef = useRef(null)
+function Hero() {
   const iconRefs = useRef([])
 
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    let titleTop = 0
     let radii = []
     let frame = 0
 
     const measure = () => {
-      titleTop = titleRef.current.getBoundingClientRect().top + window.scrollY - HEADER_HEIGHT
       radii = iconRefs.current.map((el) => el.offsetWidth / 2)
     }
 
     const update = () => {
       frame = 0
-      const y = window.scrollY
-      const p = titleTop > 0 ? clamp01(y / titleTop) : 1
+      const p = clamp01(window.scrollY / (window.innerHeight * SCROLL_RANGE))
       const travel = window.innerWidth
 
       iconRefs.current.forEach((el, i) => {
@@ -74,8 +71,6 @@ function Hero({ onTitleReachTop }) {
         const angle = rot + (dx / radii[i]) * (180 / Math.PI)
         el.style.transform = `translateX(${dx}px) rotate(${angle}deg)`
       })
-
-      onTitleReachTop(y >= titleTop)
     }
 
     const onScroll = () => {
@@ -95,12 +90,12 @@ function Hero({ onTitleReachTop }) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
     }
-  }, [onTitleReachTop])
+  }, [])
 
   return (
     <section className="relative flex min-h-svh items-center overflow-x-clip bg-cream px-4 sm:px-10 lg:px-20">
       <div className="relative font-display text-[clamp(4.5rem,25vw,13rem)] leading-[0.85] font-extrabold tracking-tight">
-        <h1 ref={titleRef} className="text-pistachio-900">
+        <h1 className="text-pistachio-900">
           Swap
           <br />
           Carpi
@@ -111,7 +106,7 @@ function Hero({ onTitleReachTop }) {
             <span
               key={i}
               ref={(el) => (iconRefs.current[i] = el)}
-              className={`sticker absolute -translate-x-1/2 -translate-y-1/2 will-change-transform ${color}`}
+              className={`sticker hero-icon absolute -translate-x-1/2 -translate-y-1/2 will-change-transform ${color}`}
               style={{ left: `${x}%`, top: `${y}%`, fontSize: `${size}em`, transform: `rotate(${rot}deg)` }}
             >
               <Icon className="block" />

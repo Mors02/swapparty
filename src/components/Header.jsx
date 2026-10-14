@@ -10,13 +10,10 @@ const LINKS = [
   { href: '#contatti', label: 'Contatti', Icon: PiEnvelopeSimpleBold },
 ].filter(Boolean)
 
-function Header({ visible }) {
+function Header() {
   return (
     <header
-      inert={!visible}
-      className={`fixed inset-x-0 top-0 z-50 border-b border-border bg-cream/90 backdrop-blur transition duration-300 ${
-        visible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-      }`}
+      className="fixed inset-x-0 top-0 z-50 border-b border-border bg-cream/90 backdrop-blur"
     >
       <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-10 lg:px-20">
         <a href="#top" className="flex items-center gap-2 font-display text-2xl font-extrabold text-pistachio-900">
