@@ -33,7 +33,7 @@ function LatestFlyer({ edition, onSelect }) {
   return (
     <section
       id="prossima"
-      className="flex min-h-svh scroll-mt-16 items-center bg-pistachio-50 px-4 py-24 sm:px-10 lg:px-20"
+      className="flex min-h-svh scroll-mt-16 items-center bg-pistachio-100 px-4 py-24 sm:px-10 lg:px-20"
     >
       <div className="grid w-full items-center gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
         <div className="[perspective:1200px]" onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>

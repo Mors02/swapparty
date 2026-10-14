@@ -47,7 +47,7 @@ function Articles() {
   if (articles.length === 0) return null
 
   return (
-    <section id="articoli" className="scroll-mt-16 bg-linear-to-b from-pistachio-300 to-pistachio-500 px-4 py-24 sm:px-10 lg:px-20">
+    <section id="articoli" className="scroll-mt-16 bg-linear-to-b from-pistachio-400 to-pistachio-500 px-4 py-24 sm:px-10 lg:px-20">
       <h2 className="font-display text-4xl font-bold text-pistachio-900 sm:text-5xl">Articoli su di noi</h2>
       <ul className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article) => (
