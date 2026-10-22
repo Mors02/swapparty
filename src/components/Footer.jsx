@@ -16,7 +16,7 @@ const AUTHORS = [
 const YEAR = new Date().getFullYear()
 
 // Nome utente Instagram senza @ (es. 'swapcarpi'): finché è vuoto il link non viene mostrato
-const INSTAGRAM = ''
+const INSTAGRAM = 'swapcarpi'
 
 const linkClass = 'text-cream transition hover:text-pistachio-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pistachio-300'
 
@@ -69,9 +69,9 @@ function Footer() {
               href={`https://www.instagram.com/${INSTAGRAM}/`}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-2 ${linkClass}`}
+              className="inline-flex items-center gap-2 rounded-full border border-cream/20 bg-cream/10 py-2 pr-5 pl-3 font-semibold text-cream transition hover:border-pistachio-300 hover:bg-pistachio-300 hover:text-pistachio-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-pistachio-300"
             >
-              <PiInstagramLogoBold className="text-xl" />@{INSTAGRAM}
+              <PiInstagramLogoBold className="text-2xl" />@{INSTAGRAM}
             </a>
           ) : (
             <p className="inline-flex items-center gap-2 text-cream/60">

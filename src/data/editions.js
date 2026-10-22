@@ -5,6 +5,8 @@ import { photosFor } from './photos.js'
 // le prime 3 escono anche da dietro il volantino, tutte finiscono nella parete di polaroid.
 
 const EDITIONS = [
+  { date: '2023-04-30', flyer: '/flyers/23-04-30.jpeg', place: "Parrocchia di Sant'Agata, Cibeno" },
+  { date: '2023-10-15', flyer: '/flyers/23-10-15.jpeg', place: "Parrocchia di Sant'Agata, Cibeno" },
   { date: '2024-06-12', flyer: '/flyers/24-06-12.jpeg', place: 'Parrocchia di Quartirolo, Carpi' },
   { date: '2024-10-20', flyer: '/flyers/24-10-20.jpeg', place: "Parrocchia di Sant'Agata, Cibeno" },
   { date: '2024-11-17', flyer: '/flyers/24-11-17.jpeg', place: 'Società Agricola Terrevive, Carpi' },
@@ -12,6 +14,7 @@ const EDITIONS = [
   { date: '2025-11-23', flyer: '/flyers/25-11-23.jpeg', place: 'Oratorio Eden, Carpi' },
   { date: '2026-05-23', flyer: '/flyers/26-05-23.jpeg', place: 'Società Agricola Terrevive, Carpi' },
   { date: '2026-06-14', flyer: '/flyers/26-06-14.jpeg', place: 'Via G. Galilei 4, Correggio' },
+  { date: '2026-11-08', flyer: '/flyers/26-11-08.jpg', place: "Parrocchia di Sant'Agata, Cibeno" },
 ].map((e) => {
   const photos = photosFor(e.flyer.split('/').pop().replace(/\.[^.]+$/, ''))
   return { ...e, previews: photos.slice(0, 3).map((p) => p.thumb), gallery: photos }
