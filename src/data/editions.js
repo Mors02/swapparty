@@ -13,7 +13,7 @@ const EDITIONS = [
   { date: '2025-05-18', flyer: '/flyers/25-05-18.jpg', place: 'Società Agricola Terrevive, Carpi' },
   { date: '2025-11-23', flyer: '/flyers/25-11-23.jpeg', place: 'Oratorio Eden, Carpi' },
   { date: '2026-05-23', flyer: '/flyers/26-05-23.jpeg', place: 'Società Agricola Terrevive, Carpi' },
-  { date: '2026-06-14', flyer: '/flyers/26-06-14.jpeg', place: 'Via G. Galilei 4, Correggio' },
+  { date: '2026-06-14', flyer: '/flyers/26-06-14.jpeg', place: 'Indirizzo privato' },
   { date: '2026-11-08', flyer: '/flyers/26-11-08.jpg', place: "Parrocchia di Sant'Agata, Cibeno" },
 ].map((e) => {
   const photos = photosFor(e.flyer.split('/').pop().replace(/\.[^.]+$/, ''))
