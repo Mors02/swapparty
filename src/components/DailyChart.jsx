@@ -22,7 +22,6 @@ function DailyChart({ code, days }) {
   const today = todayInRome()
   const series = lastDays(eventDate < today ? eventDate : today).map((day) => ({ day, n: Number(days[day] ?? 0) }))
   const max = Math.max(1, ...series.map((d) => d.n))
-  const peak = series.reduce((a, b) => (b.n > a.n ? b : a))
   const sum = series.reduce((s, d) => s + d.n, 0)
 
   return (
@@ -39,24 +38,17 @@ function DailyChart({ code, days }) {
         {series.map(({ day, n }) => {
           const pct = (n / max) * 100
           return (
-            // Tutta la colonna fa da area di hover, non solo la barra
-            <div key={day} tabIndex={0} className="group relative flex h-full flex-1 items-end outline-none">
-              <div
-                className="w-full rounded-t-[4px] bg-pistachio-600 transition-colors group-hover:bg-pistachio-700 group-focus:bg-pistachio-700"
-                style={{ height: `${pct}%` }}
-              />
-              {/* Unica etichetta fissa: il giorno con più prenotazioni */}
-              {day === peak.day && n > 0 && (
+            <div key={day} className="relative flex h-full flex-1 items-end">
+              <div className="w-full rounded-t-[4px] bg-pistachio-600" style={{ height: `${pct}%` }} />
+              {/* Numero sopra le barre con almeno una prenotazione: i giorni a zero restano puliti */}
+              {n > 0 && (
                 <span
-                  className="absolute inset-x-0 mb-1 text-center text-xs font-semibold tabular-nums text-ink group-hover:invisible group-focus:invisible"
+                  className="absolute inset-x-0 mb-1 text-center text-xs font-semibold tabular-nums text-ink"
                   style={{ bottom: `${pct}%` }}
                 >
                   {n}
                 </span>
               )}
-              <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded-md bg-ink px-2 py-1 text-xs whitespace-nowrap text-cream shadow group-hover:block group-focus:block">
-                {formatDay(day)}: <span className="font-semibold tabular-nums">{n}</span>
-              </div>
             </div>
           )
         })}

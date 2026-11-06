@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import DailyChart from '../components/DailyChart.jsx'
-import { formatCode } from '../data/editions.js'
+import { PiMapPinBold } from 'react-icons/pi'
+import { editionsByDate, formatCode } from '../data/editions.js'
+
+// Luogo dell'edizione con la stessa data dell'evento (il codice YY-MM-DD è la data del volantino)
+const placeFor = (code) => editionsByDate.find((e) => e.date === `20${code}`)?.place
 
 // Console nascosta /bookings: il codice è pubblico, ma i dati arrivano solo con una sessione valida
 
@@ -184,16 +188,22 @@ function Bookings() {
           <details
             key={ev.code}
             open={ev.open || (!stats.current && i === 0)}
-            className="group rounded-xl border border-border bg-surface p-5"
+            className="rounded-xl border border-border bg-surface p-5"
           >
             <summary className="flex cursor-pointer list-none items-baseline justify-between gap-4">
-              <span className="font-semibold text-ink">
-                {formatCode(ev.code)}
-                {ev.open && (
-                  <span className="ml-2 rounded-full bg-pistachio-100 px-2 py-0.5 text-xs font-semibold text-pistachio-800">
-                    aperto
-                  </span>
-                )}
+              <span>
+                <span className="font-semibold text-ink">
+                  {formatCode(ev.code)}
+                  {ev.open && (
+                    <span className="ml-2 rounded-full bg-pistachio-100 px-2 py-0.5 text-xs font-semibold text-pistachio-800">
+                      aperto
+                    </span>
+                  )}
+                </span>
+                <span className="mt-1 flex items-center gap-1 text-sm text-ink-muted">
+                  <PiMapPinBold aria-hidden="true" className="shrink-0" />
+                  {placeFor(ev.code) ?? 'Luogo non indicato in editions.js'}
+                </span>
               </span>
               <span className="text-ink-muted">
                 <span className="font-display text-2xl font-extrabold tabular-nums text-ink">{ev.total}</span>{' '}
