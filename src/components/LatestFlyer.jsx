@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { PiDownloadSimpleBold } from 'react-icons/pi'
 import { formatDate } from '../data/editions.js'
+import BookingButton from './BookingButton.jsx'
 
 // Inclinazione massima in gradi: gli angoli del volantino seguono il puntatore
 const MAX_TILT = 8
@@ -71,7 +72,7 @@ function LatestFlyer({ edition, onSelect }) {
             Porta i vestiti che non usi <br className="hidden sm:inline" />e trasformali nel <br className="hidden sm:inline" />
             tuo <mark className="highlight">prossimo outfit</mark>
           </h2>
-          <div className="mt-8 flex justify-end">
+          <div className="mt-8 flex flex-col items-end gap-4">
             <a
               href={edition.flyer}
               download={`swapcarpi-${edition.date}.${ext}`}
@@ -80,6 +81,7 @@ function LatestFlyer({ edition, onSelect }) {
               <PiDownloadSimpleBold className="text-xl" />
               Clicca qui per scaricare il volantino
             </a>
+            <BookingButton />
           </div>
         </div>
       </div>

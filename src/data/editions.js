@@ -25,3 +25,6 @@ export const editionsByDate = [...EDITIONS].sort((a, b) => b.date.localeCompare(
 
 const dateFormat = new Intl.DateTimeFormat('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
 export const formatDate = (iso) => dateFormat.format(new Date(`${iso}T12:00:00`))
+
+// Codice evento delle prenotazioni (YY-MM-DD, come i nomi dei volantini) -> "8 novembre 2026"
+export const formatCode = (code) => formatDate(`20${code}`)
